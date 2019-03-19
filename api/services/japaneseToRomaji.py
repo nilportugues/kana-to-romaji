@@ -273,7 +273,3 @@ input = u'''
 '''
 
 
-t = JapaneseToRomaji()
-result = t.convert(input)
-
-print(result)

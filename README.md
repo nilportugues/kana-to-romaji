@@ -5,8 +5,8 @@
 
 ## 2.1 Documentation: 
 
- - **Swagger UI**: http://127.0.0.1:5000/
- - **Swagger.json**: http://127.0.0.1:5000/swagger.json
+ - **Swagger UI**: http://0.0.0.0:5000/
+ - **Swagger.json**: http://0.0.0.0:5000/swagger.json
  
 # 3. Framework:
 

@@ -2,7 +2,7 @@
 
 # Using 127.0.0.1 is important if localhost
 # In production it would be intelligent to use the API URL (and no port specified)
-FLASK_SERVER_NAME = 'nilportugues.com:5000'
+FLASK_SERVER_NAME = '0.0.0.0:5000'
 FLASK_DEBUG = False
 
 # Flask-Restplus settings
