@@ -25,6 +25,25 @@ class KakasiSingleton:
         _kakasi.setMode("J","a") # Japanese to ascii, default: no conversion
         KakasiSingleton.__instance = _kakasi
 
+
+class KakasiConverterSingleton:
+   __instance = None
+
+   @staticmethod 
+   def getInstance():
+      """ Static access method. """
+      if KakasiConverterSingleton.__instance == None:
+         KakasiConverterSingleton()
+      return KakasiConverterSingleton.__instance
+
+   def __init__(self):
+      """ Virtually private constructor. """
+      if KakasiConverterSingleton.__instance != None:
+         raise Exception("This class is a KakasiConverterSingleton!")
+      else:
+        KakasiConverterSingleton.__instance = KakasiSingleton.getInstance().getConverter()
+
+
 class MeCabSingleton:
    __instance = None
 
@@ -78,11 +97,12 @@ def is_japanese(string):
 
     return False    
 
+conv = KakasiConverterSingleton.getInstance() 
 
 class JapaneseToRomaji():
 
     def convert(self, inputText):
-
+      
         input = inputText
         input = input.replace(" ", "**SPACE**")
         lines = input.splitlines()
@@ -100,7 +120,7 @@ class JapaneseToRomaji():
             romanizedLine = []
             for i in parsed:
                 #now for each i[0] do romaji
-                conv = KakasiSingleton.getInstance().getConverter()
+               
                 finalResult = None
 
                 # ignore calculation if initial string is numeric
