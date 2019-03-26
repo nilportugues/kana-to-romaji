@@ -4,13 +4,46 @@ from pykakasi import kakasi,wakati
 import json
 import re
 
-## Prepare the libs
-mecab_tagger = MeCab.Tagger("")
+class KakasiSingleton:
+   __instance = None
 
-kakasi = kakasi()
-kakasi.setMode("H","a") # Hiragana to ascii, default: no conversion
-kakasi.setMode("K","a") # Katakana to ascii, default: no conversion
-kakasi.setMode("J","a") # Japanese to ascii, default: no conversion
+   @staticmethod 
+   def getInstance():
+      """ Static access method. """
+      if KakasiSingleton.__instance == None:
+         KakasiSingleton()
+      return KakasiSingleton.__instance
+
+   def __init__(self):
+      """ Virtually private constructor. """
+      if KakasiSingleton.__instance != None:
+         raise Exception("This class is a KakasiSingleton!")
+      else:
+        _kakasi = kakasi()
+        _kakasi.setMode("H","a") # Hiragana to ascii, default: no conversion
+        _kakasi.setMode("K","a") # Katakana to ascii, default: no conversion
+        _kakasi.setMode("J","a") # Japanese to ascii, default: no conversion
+        KakasiSingleton.__instance = _kakasi
+
+class MeCabSingleton:
+   __instance = None
+
+   @staticmethod 
+   def getInstance():
+      """ Static access method. """
+      if MeCabSingleton.__instance == None:
+         MeCabSingleton()
+      return MeCabSingleton.__instance
+
+   def __init__(self):
+      """ Virtually private constructor. """
+      if MeCabSingleton.__instance != None:
+         raise Exception("This class is a MeCabSingleton!")
+      else:      
+        MeCabSingleton.__instance = MeCab.Tagger("")
+
+
+
 
 def is_number(s):
     """ Returns True is string is a number. """
@@ -60,14 +93,14 @@ class JapaneseToRomaji():
         for line in lines:
             text = line
           
-            chunklines = mecab_tagger.parse(text).splitlines()[:-1]    
+            chunklines = MeCabSingleton.getInstance().parse(text).splitlines()[:-1]    
             parsed = [[chunk.split('\t')[0], tuple(chunk.split('\t')[1].split(',')) ] for chunk in chunklines]
 
             ## Parse
             romanizedLine = []
             for i in parsed:
                 #now for each i[0] do romaji
-                conv = kakasi.getConverter()
+                conv = KakasiSingleton.getInstance().getConverter()
                 finalResult = None
 
                 # ignore calculation if initial string is numeric
