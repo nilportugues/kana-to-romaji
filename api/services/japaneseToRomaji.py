@@ -154,6 +154,9 @@ class JapaneseToRomaji():
             romanizedLine = "".join(romanizedLine)
                 
 
+            romanizedLine = romanizedLine.replace("\nkunga ", "\nkimi ")
+            romanizedLine = romanizedLine.replace(" kunga ", " kimi ")
+
             romanizedLine = romanizedLine.replace(" ha ", " wa ")
 
             ## Collapse っ
