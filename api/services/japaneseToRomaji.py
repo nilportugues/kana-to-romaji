@@ -141,7 +141,7 @@ class JapaneseToRomaji():
                     if result1 == None:
                         finalResult = result2+" "
                     elif result1 != None and result2 != result1:
-                        finalResult = result2+" "
+                        finalResult = result1+" "
                     else:
                         finalResult = result2+" "
 
