@@ -21,3 +21,9 @@ RUN pip3 install Flask
 RUN pip3 install flask-restplus
 RUN pip3 install flask-restful-swagger-2
 RUN pip3 install urllib3==1.22
+
+
+RUN mkdir /app
+COPY . /app
+
+CMD [ "python3", "/app/api/app.py" ]
