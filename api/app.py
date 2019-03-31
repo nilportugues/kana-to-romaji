@@ -28,3 +28,6 @@ app.config['RESTPLUS_MASK_SWAGGER'] = settings.RESTPLUS_MASK_SWAGGER
 app.config['ERROR_404_HELP'] = settings.RESTPLUS_ERROR_404_HELP
 app.config['SWAGGER_UI_ENABLED'] = settings.SWAGGER_UI_ENABLED
 
+
+## Start in dev mode
+app.run(host='0.0.0.0')
