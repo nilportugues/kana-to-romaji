@@ -86,7 +86,10 @@ def is_cjk(char):
       {"from": ord(u"\U0002b820"), "to": ord(u"\U0002ceaf")}  # included as of Unicode 8.0
     ]    
 
-    return any([range["from"] <= ord(char) <= range["to"] for range in ranges])
+    try:
+        return any([range["from"] <= ord(char) <= range["to"] for range in ranges])
+    except:
+        return True
 
 def is_japanese(string):
     i = 0
@@ -134,7 +137,10 @@ class JapaneseToRomaji():
                 if finalResult == None:    
                     result1 = None
                     if len(i) == 2 and len(i[1]) > 8:
-                        result1 = conv.do(i[1][7])
+                        try:
+                            result1 = conv.do(i[1][7])
+                        except:
+                            result1 = None;    
 
                     result2 = conv.do(i[0])
 
