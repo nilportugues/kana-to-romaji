@@ -142,7 +142,10 @@ class JapaneseToRomaji():
                         except:
                             result1 = None;    
 
-                    result2 = conv.do(i[0])
+                    try:
+                        result2 = conv.do(i[0])
+                    except:
+                        result2 = ""
 
                     if result1 == None:
                         finalResult = result2+" "
