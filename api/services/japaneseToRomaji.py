@@ -135,27 +135,45 @@ class JapaneseToRomaji():
                     finalResult = i[0]                    
 
                 if finalResult == None:    
-                    result1 = None
+                    result1 = ""
                     if len(i) == 2 and len(i[1]) > 8:
                         try:
-                            result1 = conv.do(i[1][7])
+                            wordType = conv.do(i[1][2])
+                            # family name. This is VERY Important.
+                            if wordType == "jinmei": 
+                                result1 = conv.do(i[1][7])                            
+                            else:
+                                result = ""
                         except:
-                            result1 = None;    
+                            result1 = "";                                
 
                     try:
                         result2 = conv.do(i[0])
                     except:
                         result2 = ""
 
-                    if result1 == None:
+                    if result1 == "":
+                        # print("1-->r1: "+result1)
+                        # print("1-->r2: "+result2)                        
                         finalResult = result2+" "
-                    elif result1 != None and result2 != result1:
+                    elif result2 != "" and result1 == "":
+                        # print("2-->r1: "+result1)
+                        # print("2-->r2: "+result2)                        
+                        finalResult = result2+" "
+                    elif result1 != "" and result2 == "":
+                        # print("3-->r1: "+result1)
+                        # print("3-->r2: "+result2)                                                
+                        finalResult = result1+" "  
+                    elif result1 != "" and result2 !="" and result2 != result1:    
+                        # print(i)                                          
+                        # print("5-->r1: "+result1)
+                        # print("5-->r2: "+result2)                        
                         finalResult = result1+" "
                     else:
-                        finalResult = result2+" "
+                        # print("4-->r1: "+result1)
+                        # print("4-->r2: "+result2)                        
+                        finalResult = result1+" "
 
-#                print("r1 "+result1)
-#                print("r2 "+result2)
                 romanizedLine.append(finalResult)
 
 
@@ -267,74 +285,9 @@ class JapaneseToRomaji():
             romanizedLine = romanizedLine.strip()
             romanizedLine = " ".join(romanizedLine.split())
 
-            
-
             pair[text] = romanizedLine.strip()
             romanized.append(pair)
 
         return romanized
 
-
-input = u'''
-クラクションに佇む灯り
-命を差し出して
-今にも崩れそうになる
-時にディストラクション
-
-甘い甘いキスを呼ぶように
-暗い深い闇に溺れてくんだ
-
-クラクションの音を食した
-渋谷街頭の夜に
-色づく髪つかみ飛ばす
-潔く死にたい人
-渦巻く性の欲望
-途端にこだまさせて
-
-ワガママで誤摩化さないで
-ワガママは勝手でしょ？
-誰かを守りたいと独り嘆く
-ワガママで誤摩化さないで
-ワガママに嫉妬して
-沈んでは浮かぶ子供の匂いがした
-
-甘い甘いキスで確かめて
-暗い深い愛に溺れてく
-
-また飛ぶ考えられない霧中浮遊
-解放する
-今にも崩れそうな面影
-誰のために今を生きて
-誰のために愛を確かめる？
-時に視界映る美には
-リスクの逆さ言葉が似合う
-
-ワガママで誤摩化さないで
-ワガママは勝手でしょ？
-思いもよらない言葉降り注ぐ
-ワガママの意味を知らない
-ワガママが合図でしょ？
-沈んでは浮かぶ子供の血を好んだ
-
-クラクションの音は止まらない
-交差点突き抜けて
-光に合わせ踊った幻覚と現実を
-重ね狂う
-
-失ってやっと気づいた
-本当のその意味に
-独りきりの夜が朝を迎える
-誰かに愛され　そして
-誰かを愛す時
-今までの過去にさよなら告げて
-ワガママにそっと愛を付け足して
-
-甘い甘いキスを呼ぶように
-
-足下コンクリートの香り
-ほら　また始まる
-あの日の見苦しい僕の姿は
-もう此処にはないから
-'''
-
-
+# Test this with input:  "化身の獣, 馬飼野康二", output: "keshin no kemono , makaino kouji"
