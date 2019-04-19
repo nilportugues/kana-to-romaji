@@ -35,6 +35,10 @@ RUN cd /app && \
     python3 setup.py install && \
     pip3 install uwsgi
 
+## pykakasi and other stuff that gets downloaded.
+RUN chmod -Rf 777 /usr/local/lib/python*/site-packages
+
+
 ## Copy files for uwsgi
 RUN mkdir -p /opt/uwsgi/
 COPY ./docker/uwsgi/uwsgi.ini /opt/uwsgi/uwsgi.ini
